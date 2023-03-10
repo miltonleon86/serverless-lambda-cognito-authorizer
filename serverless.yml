@@ -1,0 +1,22 @@
+service: authorizer-lambda
+provider:
+  name: aws
+  region: eu-west-1
+  runtime: nodejs16.x
+  environment:
+    A_VARIABLE: dev
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-offline
+
+functions:
+  app:
+    handler: src/lambda.handler
+    events:
+      - httpApi: ANY /
+
+custom:
+  serverless-offline: # Make it able to work local
+    httpPort: 80
+    host: 0.0.0.0
